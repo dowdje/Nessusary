@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+</head>
+<body>
+<h2>XHR (XMLHttpRequest) GET Request Example</h2>
+<button type="button" onclick="getData()">GET Data</button>
+<p id="demo"></p>
+
+</body>
+<script>
+function getData() {
+  var xhttp = new XMLHttpRequest();
+  var targetUrl = "https://nessus-e9660.firebaseio.com/configuration.json";
+  
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+      document.getElementById("demo").innerHTML =
+      this.responseText;
+    }else if (this.status){
+    document.getElementById("demo").innerHTML = "Can not access: " + targetUrl 
+      + " <br /> Response: " + this.status + " " + this.responseText;
+  }else{
+    document.getElementById("demo").innerHTML = "Loading... ";
+  }
+  };
+  
+  xhttp.open("GET", targetUrl, true);
+  xhttp.send();
+}
+</script>
+</html>
