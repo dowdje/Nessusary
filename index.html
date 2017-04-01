@@ -2,34 +2,230 @@
 <html>
 <head>
   <title></title>
+<style type="text/css">
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "fira sans",system-ui,-apple-system,roboto,"segoe ui",sans-serif;
+}
+nav{
+  background-color: #3fae29;
+  height: 20%;
+}
+#sub-nav{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 80%;
+}
+
+li{
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+ul{
+  margin: 0px;
+  padding: 0px;
+}
+button{
+  margin: 5px;
+  height:80%;
+  width: 50%;
+  background-color: #6fbf4a;
+  border: 3px solid #6fbf4a;
+  border-radius: 20px;
+}
+#table-container{
+  display: flex;
+  background-color: #c0d7db;
+  width: 80%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+#table{
+  display:flex;
+  flex-direction: column;
+  width: 90%;
+  height: 90%;
+  border-radius: 2px;
+  
+}
+
+tr{
+  display: flex;
+  flex-direction: row;
+}
+
+#table-headers{
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid #96b5ba;
+  padding-left: 0px;
+  margin-bottom: 0px;
+  
+}
+
+#table-headers li{
+  list-style: none;
+  padding: 10px;
+  padding-left: 5px;
+  color: #00839b;
+  font-size: 17px;
+  text-align: left;
+}
+
+
+
+#name-header{
+  flex: 8;
+}
+
+#hostname-header{
+  flex: 3;
+}
+
+#port-header{
+  flex: 4;
+}
+
+#username-header{
+  flex: 6;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+}
+
+.row li{
+  padding: 10px;
+  padding-left: 5px;
+  
+}
+
+.index{
+  flex: 1;
+}
+
+.name{
+  flex: 3;
+}
+
+.hostname{
+  flex: 8;
+}
+
+.port{
+  flex: 4;
+}
+
+.username{
+  flex: 6;
+}
+</style>
 
 </head>
 <body>
-<h2>XHR (XMLHttpRequest) GET Request Example</h2>
+<nav>
 <button type="button" onclick="getData()">GET Data</button>
-<p id="demo"></p>
+<div id='status'></div>
+</nav>
+<div id='sub-nav'>
+<div id='table-container'>
+  <div id='table'>
+    <ul id='table-headers'>
+    <li id='hostname-header'>Host</li>         
+    <li id='name-header'>Name</li>
+    <li id='port-header'>Port</li>
+    <li id='username-header'>Username</li>
+    </ul>
+    <ul id='table-body'>
+
+    </ul>
+  </div>
+</div>
+<div id='search-form'>
+  <form>
+    <input type="text" name="host">
+    <input type="text" name="hostname">
+    <input type="text" name="port">
+    <input type="submit" name="submit">
+  </form>
+</div>
+</div>
 
 </body>
 <script>
+
+function renderHostObjects(hosts){
+hosts.forEach((host, idx)=>{
+  var table = document.getElementById('table-body');
+  var tableRow = document.createElement('li')
+  var row = document.createElement('ul');
+  row.setAttribute('class', 'row');
+  tableRow.style.order = idx + 1;
+  var userNameCell = document.createElement('li')
+  userNameCell.setAttribute('class', 'username')
+  var hostNameCell = document.createElement('li')
+  hostNameCell.setAttribute('class', 'hostname')
+  var portCell = document.createElement('li')
+  portCell.setAttribute('class', 'port')
+  var hostNumberCell = document.createElement('li')
+  hostNumberCell.setAttribute('class', 'name')
+  var hostNumber = document.createTextNode(host['name'])
+  hostNumberCell.append(hostNumber)
+  var userName = document.createTextNode(host['username'])
+  userNameCell.append(userName)
+  var port = document.createTextNode(host['port'])
+  portCell.append(port)
+  var hostName = document.createTextNode(host['hostname'])
+  hostNameCell.append(hostName)
+  row.append(hostNumberCell)
+  row.append(hostNameCell)
+  row.append(portCell)
+  row.append(userNameCell);
+  tableRow.append(row)
+  zebraStripe(tableRow)
+  table.append(tableRow);
+  
+})
+}
 function getData() {
   var xhttp = new XMLHttpRequest();
   var targetUrl = "https://nessus-e9660.firebaseio.com/configuration.json";
   
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("status").innerHTML = "";
+      document.getElementById('table-body').innerHTML = "";
 
-      document.getElementById("demo").innerHTML =
-      this.responseText;
+    document.getElementById("table").append("");
+      const hosts = JSON.parse(this.responseText);
+      renderHostObjects(hosts)
     }else if (this.status){
-    document.getElementById("demo").innerHTML = "Can not access: " + targetUrl 
-      + " <br /> Response: " + this.status + " " + this.responseText;
+      document.getElementById("status").innerHTML = "Oops!";
   }else{
-    document.getElementById("demo").innerHTML = "Loading... ";
+      document.getElementById("status").innerHTML = "Loading... ";
   }
   };
   
   xhttp.open("GET", targetUrl, true);
   xhttp.send();
+}
+
+function zebraStripe(row){
+  if(row.style.order % 2 === 0){
+    row.style.backgroundColor = '#6a9096';
+  }else{
+    row.style.backgroundColor = '#9fc5cc';
+    
+  }
 }
 </script>
 </html>
