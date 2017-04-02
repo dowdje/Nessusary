@@ -2,160 +2,43 @@
 <html>
 <head>
   <title></title>
-<style type="text/css">
-  html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: "fira sans",system-ui,-apple-system,roboto,"segoe ui",sans-serif;
-}
-nav{
-  background-color: #3fae29;
-  height: 20%;
-}
-#sub-nav{
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 80%;
-}
-
-li{
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-}
-ul{
-  margin: 0px;
-  padding: 0px;
-}
-button{
-  margin: 5px;
-  height:80%;
-  width: 50%;
-  background-color: #6fbf4a;
-  border: 3px solid #6fbf4a;
-  border-radius: 20px;
-}
-#table-container{
-  display: flex;
-  background-color: #c0d7db;
-  width: 80%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  
-}
-
-#table{
-  display:flex;
-  flex-direction: column;
-  width: 90%;
-  height: 90%;
-  border-radius: 2px;
-  
-}
-
-tr{
-  display: flex;
-  flex-direction: row;
-}
-
-#table-headers{
-  display: flex;
-  flex-direction: row;
-  border-bottom: 2px solid #96b5ba;
-  padding-left: 0px;
-  margin-bottom: 0px;
-  
-}
-
-#table-headers li{
-  list-style: none;
-  padding: 10px;
-  padding-left: 5px;
-  color: #00839b;
-  font-size: 17px;
-  text-align: left;
-}
-
-
-
-#name-header{
-  flex: 8;
-}
-
-#hostname-header{
-  flex: 3;
-}
-
-#port-header{
-  flex: 4;
-}
-
-#username-header{
-  flex: 6;
-}
-
-.row{
-  display: flex;
-  flex-direction: row;
-}
-
-.row li{
-  padding: 10px;
-  padding-left: 5px;
-  
-}
-
-.index{
-  flex: 1;
-}
-
-.name{
-  flex: 3;
-}
-
-.hostname{
-  flex: 8;
-}
-
-.port{
-  flex: 4;
-}
-
-.username{
-  flex: 6;
-}
-</style>
-
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="tableSorter.js"></script>    
+<script type="text/javascript" src="widgets.js"></script>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <nav>
-<button type="button" onclick="getData()">GET Data</button>
+<img id='logo' src="https://static.tenable.com/press/logos/products/NessusProfessional-White-RGB-logo.png">
 <div id='status'></div>
 </nav>
 <div id='sub-nav'>
 <div id='table-container'>
-  <div id='table'>
-    <ul id='table-headers'>
-    <li id='hostname-header'>Host</li>         
-    <li id='name-header'>Name</li>
-    <li id='port-header'>Port</li>
-    <li id='username-header'>Username</li>
-    </ul>
-    <ul id='table-body'>
+  <table id='table' class='tablesorter'>
+    <thead>
+    <tr id='table-headers'>
+    <th id='name-header'>Name<i class="fa fa-sort" aria-hidden="true"></i></th>
+    <th id='hostname-header'>Host<i class="fa fa-sort" aria-hidden="true"></i></th>         
+    <th id='port-header'>Port<i class="fa fa-sort" aria-hidden="true"></i></th>
+    <th id='username-header'>Username<i class="fa fa-sort" aria-hidden="true"></i></th>
+    </tr>
+    </thead>
+    <tbody id='table-body'>
 
-    </ul>
-  </div>
+    </tbody>
+  </table>
 </div>
 <div id='search-form'>
-  <form>
-    <input type="text" name="host">
-    <input type="text" name="hostname">
-    <input type="text" name="port">
-    <input type="submit" name="submit">
+  <form onsubmit="getData()">
+    <label>Host</label>
+    <input type="text" name="host" id='host-input'>
+    <label>Hostname</label>
+    <input type="text" name="hostname" id='hostname-input'>
+    <label>Port</label>
+    <input type="text" name="port" id='hostname-input'>
+    <input type="submit" name="submit" id='submit' >
+  <!-- <button type="button" onclick="getData()">GET Data</button> -->
   </form>
 </div>
 </div>
@@ -165,40 +48,20 @@ tr{
 
 function renderHostObjects(hosts){
 hosts.forEach((host, idx)=>{
-  var table = document.getElementById('table-body');
-  var tableRow = document.createElement('li')
-  var row = document.createElement('ul');
-  row.setAttribute('class', 'row');
-  tableRow.style.order = idx + 1;
-  var userNameCell = document.createElement('li')
-  userNameCell.setAttribute('class', 'username')
-  var hostNameCell = document.createElement('li')
-  hostNameCell.setAttribute('class', 'hostname')
-  var portCell = document.createElement('li')
-  portCell.setAttribute('class', 'port')
-  var hostNumberCell = document.createElement('li')
-  hostNumberCell.setAttribute('class', 'name')
-  var hostNumber = document.createTextNode(host['name'])
-  hostNumberCell.append(hostNumber)
-  var userName = document.createTextNode(host['username'])
-  userNameCell.append(userName)
-  var port = document.createTextNode(host['port'])
-  portCell.append(port)
-  var hostName = document.createTextNode(host['hostname'])
-  hostNameCell.append(hostName)
-  row.append(hostNumberCell)
-  row.append(hostNameCell)
-  row.append(portCell)
-  row.append(userNameCell);
-  tableRow.append(row)
-  zebraStripe(tableRow)
-  table.append(tableRow);
-  
-})
-}
+  var $table = $('#table-body');
+  var $row = $('<tr/>', {class: 'row'}).appendTo($table)
+  for(var key in host){
+      $row.append($('<td/>',
+        {class: key, text: host[key] }))
+      }
+  // zebraStripe($row)
+  $("#table").trigger("update");
+});
+};
 function getData() {
+  event.preventDefault();
   var xhttp = new XMLHttpRequest();
-  var targetUrl = "https://nessus-e9660.firebaseio.com/configuration.json";
+  var targetUrl = "http://localhost:3000/download/request";
   
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -209,23 +72,26 @@ function getData() {
       const hosts = JSON.parse(this.responseText);
       renderHostObjects(hosts)
     }else if (this.status){
-      document.getElementById("status").innerHTML = "Oops!";
+      document.getElementById("table-body").innerHTML = "Oops!";
   }else{
-      document.getElementById("status").innerHTML = "Loading... ";
+      document.getElementById("table-body").innerHTML = "Loading... ";
   }
   };
   
   xhttp.open("GET", targetUrl, true);
   xhttp.send();
+
 }
 
-function zebraStripe(row){
-  if(row.style.order % 2 === 0){
-    row.style.backgroundColor = '#6a9096';
-  }else{
-    row.style.backgroundColor = '#9fc5cc';
-    
-  }
-}
+$(document).ready(function() 
+    { 
+        $("#table").tablesorter({
+          widgets:['zebra','resize'],    
+          widgetOptions : {
+            zebra : [ "normal-row", "alt-row" ]
+            }
+        }); 
+    } 
+); 
 </script>
 </html>
