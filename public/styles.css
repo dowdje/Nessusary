@@ -199,7 +199,8 @@ tbody{
   border-radius: 20px;
   cursor: pointer;
   outline: none;
-  font-size: 12px;
+  font-size: 13px;
+  color: #d3e5ea;
 }
 #submit:hover{
   background-color: pink;
