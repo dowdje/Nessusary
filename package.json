@@ -10,6 +10,6 @@
   },
   "scripts":{"start": "node server.js"},
   "engines": {
-    "node": "4.1.1"
+    "node": "7.2.1"
   }
 }
