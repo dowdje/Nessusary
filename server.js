@@ -4,6 +4,7 @@ var express = require('express'),
     favicon = require('serve-favicon');
 
 var app = express();
+var port = process.env.PORT || 3000
 
 app.use(express.static(__dirname + '/public'));
 app.use(favicon(path.join(__dirname, '/public/images/favicon.ico')))
@@ -14,6 +15,6 @@ app.get('/',function(req, res){
 
 app.get('/download/request', hosts.allHosts);
 
-app.listen(3000);
+app.listen(port);
 console.log('Listening on port 3000...');
 
