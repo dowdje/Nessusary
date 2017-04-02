@@ -203,7 +203,6 @@ tbody{
   color: #d3e5ea;
 }
 #submit:hover{
-  background-color: pink;
   box-shadow: 3px 3px 2px black;
 }
 #submit:active{
