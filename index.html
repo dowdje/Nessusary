@@ -11,7 +11,7 @@
 <body>
 <nav>
 <img id='logo' src="https://static.tenable.com/press/logos/products/NessusProfessional-White-RGB-logo.png">
-<div id='status'></div>
+<button onclick="getData()">Get Host 2</button>
 </nav>
 <div id='sub-nav'>
 <div id='table-container'>
@@ -59,15 +59,17 @@ hosts.forEach((host, idx)=>{
 });
 };
 function getData() {
+  if(event){
   event.preventDefault();
+  }
   var xhttp = new XMLHttpRequest();
-  var targetUrl = "http://localhost:3000/download/request";
+  var targetUrl = "http://localhost:3000/download/request?host=2";
   
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("status").innerHTML = "";
       document.getElementById('table-body').innerHTML = "";
-
+    debugger;
+      
     document.getElementById("table").append("");
       const hosts = JSON.parse(this.responseText);
       renderHostObjects(hosts)
@@ -82,6 +84,7 @@ function getData() {
   xhttp.send();
 
 }
+
 
 $(document).ready(function() 
     { 

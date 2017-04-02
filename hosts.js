@@ -1,7 +1,4 @@
-exports.allHosts = function(req, res) {
-  console.log(req.query);
-  res.header("Access-Control-Allow-Origin", "*");
-    res.send([ {
+var hosts = [ {
   "hostname" : "nessus-ntp.lab.com",
   "name" : "host1",
   "port" : 1241,
@@ -21,4 +18,10 @@ exports.allHosts = function(req, res) {
   "name" : "host4",
   "port" : 8179,
   "username" : "nogg"
-} ])};
+} ];
+
+exports.allHosts = function(req, res) {
+  console.log(hosts.slice(0, req.query.host))
+  let response = hosts.slice(0, req.query.host)
+  res.header("Access-Control-Allow-Origin", "*");
+    res.send(response)};
