@@ -7,9 +7,12 @@
   "dependencies": {
     "express": "^4.14.0",
     "mongodb": "^2.2.25",
-    "serve-favicon": "^2.4.2"
+    "serve-favicon": "^2.4.2",
+    "tablesorter": "^2.28.6"
   },
-  "scripts":{"start": "node server.js"},
+  "scripts": {
+    "start": "node server.js"
+  },
   "engines": {
     "node": "7.2.1"
   }
