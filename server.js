@@ -1,5 +1,5 @@
 var express = require('express'),
-    hosts = require('./hosts'),
+    hosts = require('./public/js/hosts'),
     path = require("path"),
     favicon = require('serve-favicon');
 
