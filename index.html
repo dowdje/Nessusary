@@ -3,10 +3,11 @@
     <title></title>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
-    <script type="text/javascript" src="tableSorter.js"></script>    
-    <script type="text/javascript" src="widgets.js"></script>
+    <!-- <script type="text/javascript" src="tableSorter.js"></script>     -->
+    <!-- <script type="text/javascript" src="widgets.js"></script> -->
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/hostRequest.js"></script>
+    <script src='js/bundle.js'></script>
   </head>
   <body>
 
@@ -16,14 +17,15 @@
 
     <div id='sub-nav'>
       <div id='table-container'>
+        <header id='header'>Configurations</header>
         <table id='table' class='tablesorter'>
 
           <thead>
             <tr id='table-headers'>
-              <th id='name-header'>Name<i class="fa fa-sort" aria-hidden="true"></i></th>
-              <th id='hostname-header'>Host<i class="fa fa-sort" aria-hidden="true"></i></th>         
-              <th id='port-header'>Port<i class="fa fa-sort" aria-hidden="true"></i></th>
-              <th id='username-header'>Username<i class="fa fa-sort" aria-hidden="true"></i></th>
+              <th id='name-header'>Name</th>
+              <th id='hostname-header'>Host</th>         
+              <th id='port-header'>Port</th>
+              <th id='username-header'>Username</th>
             </tr>
           </thead>
 
@@ -34,11 +36,11 @@
       </div>
 
       <div id='search-form'>
-        <form onsubmit="getData()">
+        <form >
           <label>HOST</label>
-          <input type="text" name="host" id='host-input' class='input'>
+          <input type="text" name="host" id='host-input' class='input' placeholder='e.g. 76'>
           <label>HOSTNAME</label>
-          <input type="text" name="hostname" id='hostname-input' class='input'>
+          <input type="text" name="hostname" id='hostname-input' class='input' placeholder='e.g. nessus-xml.lab.com'>
           <label>PORT</label>
           <input type="text" name="port" id='hostname-input' class='input'>          
           <label>USERNAME</label>
@@ -50,5 +52,5 @@
     </div>
   </body>
 
-<script src='js/hostRequest.js'></script>
+
 </html>
