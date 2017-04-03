@@ -10,7 +10,7 @@
 <body>
 <nav>
 <img id='logo' src="https://static.tenable.com/press/logos/products/NessusProfessional-White-RGB-logo.png">
-<button onclick="getData()">Get Host 2</button>
+<button onclick="getData()" id='button'>Get Host 2</button>
 </nav>
 <div id='sub-nav'>
 <div id='table-container'>
@@ -60,15 +60,24 @@ function renderHostObjects(hosts){
 
 
 function getData() {
-  if(event){
+  debugger;
   event.preventDefault();
-  }
+
+  var paramObj = {'host': 2}
+
+  $('#search-form form input').each(function(){
+    if(this.value !== "" && this.name !== 'submit'){
+      paramObj[this.name] = this.value
+    }
+  });
+
+  params = $.param(paramObj)
+
   var xhttp = new XMLHttpRequest();
-  var targetUrl = "https://nessus.herokuapp.com/download/request?host=30";
+  var targetUrl = "http://localhost:3000/download/request?"+ params;
   
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      debugger
       document.getElementById('table-body').innerHTML = "";
       
     document.getElementById("table").append("");
@@ -90,6 +99,7 @@ function getData() {
 $(document).ready(function() 
     { 
         $("#table").tablesorter({
+          sortList: [[1,1]],
           widgets:['zebra','resize'],    
           widgetOptions : {
             zebra : [ "normal-row", "alt-row" ]

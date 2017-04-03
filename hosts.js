@@ -693,7 +693,7 @@ var hosts = [ {
   } ];
 
 exports.allHosts = function(req, res) {
-  console.log(hosts)
+  console.log(req.query)
   let response = hosts.slice(0, req.query.host)
   res.header("Access-Control-Allow-Origin", "*");
     res.send(response)};

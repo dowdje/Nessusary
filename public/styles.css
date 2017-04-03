@@ -41,6 +41,9 @@ th{
   padding: 0px;
   cursor: pointer;
 }
+th:click{
+  border: 1px solid blue;
+}
 tr{
   margin: 0px;
   padding: 0px;
@@ -114,19 +117,7 @@ tbody{
   overflow-y: scroll;
 }
 
-#name-header{
-  flex: 1;
-}
-
-#hostname-header{
-  flex: 1;
-}
-
-#port-header{
-  flex: 1;
-}
-
-#username-header{
+th{
   flex: 1;
 }
 
@@ -138,28 +129,10 @@ tbody{
 .row td{
   padding: 10px;
   padding-left: 5px;
-  
-}
-
-.index{
   flex: 1;
 }
 
-.name{
-  flex: 1;
-}
 
-.hostname{
-  flex: 1;
-}
-
-.port{
-  flex: 1;
-}
-
-.username{
-  flex: 1;
-}
 
 #search-form{
   flex: 1;
