@@ -1,47 +1,53 @@
 <html>
-<head>
-  <title></title>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="tableSorter.js"></script>    
-<script type="text/javascript" src="widgets.js"></script>
-<link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body>
-<nav>
-<img id='logo' src="https://static.tenable.com/press/logos/products/NessusProfessional-White-RGB-logo.png">
-<button onclick="getData()" id='button'>Get Host 2</button>
-</nav>
-<div id='sub-nav'>
-<div id='table-container'>
-  <table id='table' class='tablesorter'>
-    <thead>
-    <tr id='table-headers'>
-    <th id='name-header'>Name<i class="fa fa-sort" aria-hidden="true"></i></th>
-    <th id='hostname-header'>Host<i class="fa fa-sort" aria-hidden="true"></i></th>         
-    <th id='port-header'>Port<i class="fa fa-sort" aria-hidden="true"></i></th>
-    <th id='username-header'>Username<i class="fa fa-sort" aria-hidden="true"></i></th>
-    </tr>
-    </thead>
-    <tbody id='table-body'>
+  <head>
+    <title></title>
 
-    </tbody>
-  </table>
-</div>
-<div id='search-form'>
-  <form onsubmit="getData()">
-    <label>HOST</label>
-    <input type="text" name="host" id='host-input' class='input'>
-    <label>HOSTNAME</label>
-    <input type="text" name="hostname" id='hostname-input' class='input'>
-    <label>PORT</label>
-    <input type="text" name="port" id='hostname-input' class='input'>
-    <input type="submit" name="submit" id='submit' value='Fetch Hosts' >
-  <!-- <button type="button" onclick="getData()">GET Data</button> -->
-  </form>
-</div>
-</div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+    <script type="text/javascript" src="tableSorter.js"></script>    
+    <script type="text/javascript" src="widgets.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
 
-</body>
+    <nav>
+      <img id='logo' src="https://static.tenable.com/press/logos/products/NessusProfessional-White-RGB-logo.png">
+      <button onclick="getData()" id='button'>Get Host 2</button>
+    </nav>
+    
+    <div id='sub-nav'>
+      <div id='table-container'>
+        <table id='table' class='tablesorter'>
+
+          <thead>
+            <tr id='table-headers'>
+              <th id='name-header'>Name<i class="fa fa-sort" aria-hidden="true"></i></th>
+              <th id='hostname-header'>Host<i class="fa fa-sort" aria-hidden="true"></i></th>         
+              <th id='port-header'>Port<i class="fa fa-sort" aria-hidden="true"></i></th>
+              <th id='username-header'>Username<i class="fa fa-sort" aria-hidden="true"></i></th>
+            </tr>
+          </thead>
+
+          <tbody id='table-body'>
+          </tbody>
+
+        </table>
+      </div>
+
+      <div id='search-form'>
+        <form onsubmit="getData()">
+          <label>HOST</label>
+          <input type="text" name="host" id='host-input' class='input'>
+          <label>HOSTNAME</label>
+          <input type="text" name="hostname" id='hostname-input' class='input'>
+          <label>PORT</label>
+          <input type="text" name="port" id='hostname-input' class='input'>
+          <input type="submit" name="submit" id='submit' value='Fetch Hosts' >
+        </form>
+      </div>
+
+    </div>
+  </body>
+
 <script src='js/hostRequest.js'></script>
 </html>

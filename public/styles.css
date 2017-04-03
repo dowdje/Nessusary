@@ -40,6 +40,9 @@ th{
   padding: 0px;
   cursor: pointer;
 }
+th:hover{
+  color: blue;
+}
 th:click{
   border: 1px solid blue;
 }
@@ -162,14 +165,14 @@ tbody{
   align-self: left;
   margin-left: 16px;
   font-size: 13px;
-  color: #46bf74;
+  color: #3fae29;
 }
 #submit{
   -webkit-appearance: none;
   margin: 5px;
   height:40px;
   width: 100px;
-  background-color: #46bf74;
+  background-color: #3fae29;
   border: 1px solid #6fbf4a;
   border-radius: 20px;
   cursor: pointer;

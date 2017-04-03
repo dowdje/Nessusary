@@ -1,15 +1,19 @@
 
 function renderHostObjects(hosts){
+  var $row;
   hosts.forEach((host, idx)=>{
     var $table = $('#table-body');
-    var $row = $('<tr/>', {class: 'row'}).appendTo($table)
+    $row = $('<tr/>', {class: 'row', id: 'row' + (idx + 1)}).appendTo($table)
       for(var key in host){
           $row.append($('<td/>',
             {class: key, text: host[key] }))
-          }
-    // zebraStripe($row)
-    $("#table").trigger("update");
+      }   
   });
+  $row.css('color', '#22ba14')
+  $row.css('font-weight', 'bold')
+  $row.css('font-size', '18px')
+
+  $("#table").trigger("update");
 };
 
 
@@ -32,7 +36,6 @@ function getData() {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById('table-body').innerHTML = "";
-      debugger
     document.getElementById("table").append("");
       const hosts = JSON.parse(this.responseText);
       renderHostObjects(hosts)
@@ -45,16 +48,15 @@ function getData() {
   
   xhttp.open("GET", targetUrl, true);
   xhttp.send();
-  if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) 
-    {
-      $('#table-container').css('overflow', 'auto')  
-      $('#table-container').css('-webkit-overflow-scrolling', 'touch')  
-    }
+
+  $('#search-form form').each(function(){
+    this.reset();
+  });
 
 }
 
 
-$(document).ready(function() 
+$(document).ready(function()
     { 
         $("#table").tablesorter({
           sortList: [[1,1]],
@@ -63,6 +65,11 @@ $(document).ready(function()
             zebra : [ "normal-row", "alt-row" ],
                  // scroll tbody to top after sorting
             }
-        }); 
+        });
+
+        if(navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+          $('#table-container').css('overflow', 'auto')  
+          $('#table-container').css('-webkit-overflow-scrolling', 'touch')  
+        }  
     } 
 ); 
