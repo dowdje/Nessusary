@@ -48,6 +48,7 @@ function getData() {
   if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) 
     {
       $('#table-container').css('overflow', 'auto')  
+      $('#table-container').css('-webkit-overflow-scrolling', 'touch')  
     }
 
 }
