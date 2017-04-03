@@ -32,7 +32,7 @@ function getData() {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById('table-body').innerHTML = "";
-      
+      debugger
     document.getElementById("table").append("");
       const hosts = JSON.parse(this.responseText);
       renderHostObjects(hosts)
