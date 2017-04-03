@@ -12,9 +12,8 @@
 
     <nav>
       <img id='logo' src="https://static.tenable.com/press/logos/products/NessusProfessional-White-RGB-logo.png">
-      <button onclick="getData()" id='button'>Get Host 2</button>
     </nav>
-    
+
     <div id='sub-nav'>
       <div id='table-container'>
         <table id='table' class='tablesorter'>
@@ -41,7 +40,9 @@
           <label>HOSTNAME</label>
           <input type="text" name="hostname" id='hostname-input' class='input'>
           <label>PORT</label>
-          <input type="text" name="port" id='hostname-input' class='input'>
+          <input type="text" name="port" id='hostname-input' class='input'>          
+          <label>USERNAME</label>
+          <input type="text" name="port" id='username-input' class='input'>
           <input type="submit" name="submit" id='submit' value='Fetch Hosts' >
         </form>
       </div>
