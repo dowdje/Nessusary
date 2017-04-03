@@ -8,6 +8,7 @@
     "express": "^4.14.0",
     "mongodb": "^2.2.25",
     "serve-favicon": "^2.4.2",
+    "tablesort": "^5.0.0",
     "tablesorter": "^2.28.6"
   },
   "scripts": {

@@ -1,9 +1,8 @@
-
 function renderHostObjects(hosts){
   var $row;
   hosts.configurations.forEach((host, idx)=>{
     var $table = $('#table-body');
-    $row = $('<tr/>', {class: 'row', id: 'row' + (idx + 1)}).appendTo($table)
+    $row = $('<tr/>', {class: 'row', id: 'row' + (idx + 1)}).prependTo($table)
       for(var key in host){
           $row.append($('<td/>',
             {class: key, text: host[key] }))
@@ -13,13 +12,14 @@ function renderHostObjects(hosts){
   $row.css('font-weight', 'bold')
   $row.css('font-size', '17px')
 
-  $("#table").trigger("update");
+
+  // $("#table").trigger("update");
 };
 
 
-function getData() {
-  event.preventDefault();
-
+function getData(e) {
+  if(!e){ var e = window.event};
+  e.preventDefault();
   var paramObj = {'host': 2}
 
   $('#search-form form input').each(function(){
@@ -54,22 +54,3 @@ function getData() {
   });
 
 }
-
-
-$(document).ready(function(){ 
-      getData();
-        $("#table").tablesorter({
-          sortList: [[1,1]],
-          widgets:['zebra'],    
-          widgetOptions : {
-            zebra : [ "normal-row", "alt-row" ],
-                 // scroll tbody to top after sorting
-            }
-        });
-
-        if(navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
-          $('#table-container').css('overflow', 'auto')  
-          $('#table-container').css('-webkit-overflow-scrolling', 'touch')  
-        } 
-
-}); 
