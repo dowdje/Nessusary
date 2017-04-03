@@ -1,7 +1,6 @@
 
 function renderHostObjects(hosts){
   var $row;
-  debugger;
   hosts.configurations.forEach((host, idx)=>{
     var $table = $('#table-body');
     $row = $('<tr/>', {class: 'row', id: 'row' + (idx + 1)}).appendTo($table)
@@ -10,7 +9,7 @@ function renderHostObjects(hosts){
             {class: key, text: host[key] }))
       }   
   });
-  $row.css('color', '#ff401e')
+  $row.css('color', 'black')
   $row.css('font-weight', 'bold')
   $row.css('font-size', '17px')
 
@@ -38,7 +37,6 @@ function getData() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById('table-body').innerHTML = "";
       document.getElementById("table").append("");
-      debugger
       const hosts = JSON.parse(this.responseText);
       renderHostObjects(hosts)
     }else if (this.status){
