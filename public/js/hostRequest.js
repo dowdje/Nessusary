@@ -45,6 +45,10 @@ function getData() {
   
   xhttp.open("GET", targetUrl, true);
   xhttp.send();
+  if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) 
+    {
+      $('#table-container').css('overflow', 'auto')  
+    }
 
 }
 
@@ -53,9 +57,10 @@ $(document).ready(function()
     { 
         $("#table").tablesorter({
           sortList: [[1,1]],
-          widgets:['zebra','resize'],    
+          widgets:['zebra'],    
           widgetOptions : {
-            zebra : [ "normal-row", "alt-row" ]
+            zebra : [ "normal-row", "alt-row" ],
+                 // scroll tbody to top after sorting
             }
         }); 
     } 
