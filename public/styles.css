@@ -49,6 +49,7 @@ tr{
   padding: 0px;
 }
 button{
+  -webkit-appearance: none;
   margin: 5px;
   height:100px;
   width: 100px;
