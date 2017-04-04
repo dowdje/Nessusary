@@ -1,6 +1,5 @@
 function filter() {
     // Declare variables
-    
     var input = document.getElementById("filter"),
         filter = input.value.toUpperCase(),
         table = document.getElementById("table-body"),
