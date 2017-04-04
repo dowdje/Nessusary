@@ -1,3 +1,4 @@
+"use strict";
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 ;(function() {
   function Tablesort(el, options) {
@@ -257,11 +258,12 @@
 var tablesort = require('tablesort');
 
 function renderHostObjects(hosts){
-  var $row;
+  var $row, $table;
 
+  $table = $('#table-body');
+  //create table body
   hosts.configurations.forEach((host, idx)=>{
 
-    var $table = $('#table-body');
 
     $row = $('<tr/>', {class: 'row', id: 'row' + (idx + 1)})
 
@@ -271,91 +273,134 @@ function renderHostObjects(hosts){
             {class: key, text: host[key] }))
       }
 
+    //add selected event listener
     $row.click(function() {
       $(this).parent().children().removeClass("selected");
       $(this).addClass("selected");
     });  
   });
 
-  $row.css('color', 'black');
-  $row.css('font-weight', 'bold');
-  $row.css('font-size', '17px');
+  $row.addClass("selected")
 
-  // $("#table").trigger("update");
 };
 
 
 function getData(e) {
   e.preventDefault();
 
-  var paramObj = {'host': 2}
+  var xhttp, targetUrl, params, paramObj;
+  paramObj = {};
 
+  //Grab query params from search form
   $('#search-form form input').each(function(){
     if(this.value !== "" && this.name !== 'submit'){
       paramObj[this.name] = this.value
     }
   });
-
   params = $.param(paramObj)
 
-  var xhttp = new XMLHttpRequest();
-  var targetUrl = "https://nessus.herokuapp.com/download/request?"+ params;
+  // declare request variables
+  xhttp = new XMLHttpRequest();
+  targetUrl = "https://nessus.herokuapp.com/download/request?"+ params;
   
   xhttp.onreadystatechange = function() {
+
+    //Check request state
     if (this.readyState == 4 && this.status == 200) {
-      $('#table-body').empty();
+      var hosts;
+
+      $('#table-body').innerHTML = "";
       $("#table").append("");
-      const hosts = JSON.parse(this.responseText);
-      renderHostObjects(hosts)
+
+      hosts = JSON.parse(this.responseText);
+      renderHostObjects(hosts);
+
+      tablesort(document.getElementById('table'));
+
     }else if (this.status){
       $("#table-body").innerHTML = "Oops!";
     }else{
       $("#table-body").innerHTML = "Loading... ";
     }
   };
-  
+  // send xhttp request
   xhttp.open("GET", targetUrl, true);
   xhttp.send();
 
-  $('#search-form form').each(function(){
-    this.reset();
-  });
-
 }
 
-function storeResponse(obj){
-  localStorage.setItem('configurations', JSON.stringify(obj.configurations))
+function filter(){
+  // Declare variables
+   
+  var input, filter, table, tr, td, i, hostname, host, port, username;
+  input = document.getElementById("filter");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("table-body");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    hostname = (tr[i].getElementsByTagName("td")[0].innerHTML.toUpperCase().indexOf(filter) > -1);
+    host = (tr[i].getElementsByTagName("td")[1].innerHTML.toUpperCase().indexOf(filter) > -1);
+    port = (tr[i].getElementsByTagName("td")[2].innerHTML.toUpperCase().indexOf(filter) > -1);
+    username = (tr[i].getElementsByTagName("td")[3].innerHTML.toUpperCase().indexOf(filter) > -1)
+    if (tr[i]) {
+      if (hostname || host || port || username) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
 }
 
 
 $(document).ready(function(){
+  var params, paramObj, xhttp, targetUrl;
 
+  //Add host request to a submit event on the search form
   $('#search-form').submit(function(event){
     getData(event);
   });
 
-  var paramObj = {'host': 2}
-
+  //assign query params string
+  paramObj = {'host': 2}
   params = $.param(paramObj)
 
-  var xhttp = new XMLHttpRequest();
-  var targetUrl = "https://nessus.herokuapp.com/download/request?"+ params;
+  // assign request variables
+  xhttp = new XMLHttpRequest();
+  targetUrl = "https://nessus.herokuapp.com/download/request?"+ params;
   
   xhttp.onreadystatechange = function() {
+
+    //Check request state
     if (this.readyState == 4 && this.status == 200) {
+      var hosts;
+
       $('#table-body').innerHTML = "";
       $("#table").append("");
-      const hosts = JSON.parse(this.responseText);
+
+      hosts = JSON.parse(this.responseText);
       renderHostObjects(hosts);
+
       tablesort(document.getElementById('table'));
+
     }else if (this.status){
+
       $("#table-body").innerHTML = "Oops!";
+
     }else{
+
       $("#table-body").innerHTML = "Loading... ";
+
     }
   };
-  
+
+  // send xhttp request
   xhttp.open("GET", targetUrl, true);
   xhttp.send();
+
+  $('#filter').keyup(filter)
+
 }); 
 },{"tablesort":1}]},{},[2]);
