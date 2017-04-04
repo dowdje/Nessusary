@@ -257,150 +257,157 @@
 },{}],2:[function(require,module,exports){
 var tablesort = require('tablesort');
 
-function renderHostObjects(hosts){
-  var $row, $table;
+function renderHostObjects(hosts) {
+    var $row, $table;
 
-  $table = $('#table-body');
-  //create table body
-  hosts.configurations.forEach((host, idx)=>{
+    $table = $('#table-body');
+    //create table body
+    hosts.configurations.forEach((host, idx) => {
 
 
-    $row = $('<tr/>', {class: 'row', id: 'row' + (idx + 1)})
+        $row = $('<tr/>', {
+            class: 'row',
+            id: 'row' + (idx + 1)
+        })
 
-    $table.prepend($row)
-      for(var key in host){
-          $row.append($('<td/>',
-            {class: key, text: host[key] }))
-      }
+        $table.prepend($row)
+        for (var key in host) {
+            $row.append($('<td/>', {
+                class: key,
+                text: host[key]
+            }))
+        }
 
-    //add selected event listener
-    $row.click(function() {
-      $(this).parent().children().removeClass("selected");
-      $(this).addClass("selected");
-    });  
-  });
+        //add selected event listener
+        $row.click(function() {
+            $(this).parent().children().removeClass("selected");
+            $(this).addClass("selected");
+        });
+    });
 
-  $row.addClass("selected")
+    $row.addClass("selected")
 
 };
 
 
 function getData(e) {
-  e.preventDefault();
+    e.preventDefault();
 
-  var xhttp, targetUrl, params, paramObj;
-  paramObj = {};
+    var xhttp, targetUrl, params, paramObj;
+    paramObj = {};
 
-  //Grab query params from search form
-  $('#search-form form input').each(function(){
-    if(this.value !== "" && this.name !== 'submit'){
-      paramObj[this.name] = this.value
-    }
-  });
-  params = $.param(paramObj)
+    //Grab query params from search form
+    $('#search-form form input').each(function() {
+        if (this.value !== "" && this.name !== 'submit') {
+            paramObj[this.name] = this.value
+        }
+    });
+    params = $.param(paramObj)
 
-  // declare request variables
-  xhttp = new XMLHttpRequest();
-  targetUrl = "https://nessus.herokuapp.com/download/request?"+ params;
-  
-  xhttp.onreadystatechange = function() {
+    // declare request variables
+    xhttp = new XMLHttpRequest();
+    targetUrl = "https://nessus.herokuapp.com/download/request?" + params;
 
-    //Check request state
-    if (this.readyState == 4 && this.status == 200) {
-      var hosts;
+    xhttp.onreadystatechange = function() {
 
-      $('#table-body').innerHTML = "";
-      $("#table").append("");
+        //Check request state
+        if (this.readyState == 4 && this.status == 200) {
+            var hosts;
 
-      hosts = JSON.parse(this.responseText);
-      renderHostObjects(hosts);
+            $('#table-body').innerHTML = "";
+            $("#table").append("");
 
-      tablesort(document.getElementById('table'));
+            hosts = JSON.parse(this.responseText);
+            renderHostObjects(hosts);
 
-    }else if (this.status){
-      $("#table-body").innerHTML = "Oops!";
-    }else{
-      $("#table-body").innerHTML = "Loading... ";
-    }
-  };
-  // send xhttp request
-  xhttp.open("GET", targetUrl, true);
-  xhttp.send();
+            tablesort(document.getElementById('table'));
+
+        } else if (this.status) {
+            $("#table-body").innerHTML = "Oops!";
+        } else {
+            $("#table-body").innerHTML = "Loading... ";
+        }
+    };
+    // send xhttp request
+    xhttp.open("GET", targetUrl, true);
+    xhttp.send();
 
 }
 
-function filter(){
-  // Declare variables
-   
-  var input, filter, table, tr, td, i, hostname, host, port, username;
-  input = document.getElementById("filter");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("table-body");
-  tr = table.getElementsByTagName("tr");
+function filter() {
+    // Declare variables
 
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    hostname = (tr[i].getElementsByTagName("td")[0].innerHTML.toUpperCase().indexOf(filter) > -1);
-    host = (tr[i].getElementsByTagName("td")[1].innerHTML.toUpperCase().indexOf(filter) > -1);
-    port = (tr[i].getElementsByTagName("td")[2].innerHTML.toUpperCase().indexOf(filter) > -1);
-    username = (tr[i].getElementsByTagName("td")[3].innerHTML.toUpperCase().indexOf(filter) > -1)
-    if (tr[i]) {
-      if (hostname || host || port || username) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    } 
-  }
+    var input, filter, table, tr, td, i, hostname, host, port, username;
+    input = document.getElementById("filter");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("table-body");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        hostname = (tr[i].getElementsByTagName("td")[0].innerHTML.toUpperCase().indexOf(filter) > -1);
+        host = (tr[i].getElementsByTagName("td")[1].innerHTML.toUpperCase().indexOf(filter) > -1);
+        port = (tr[i].getElementsByTagName("td")[2].innerHTML.toUpperCase().indexOf(filter) > -1);
+        username = (tr[i].getElementsByTagName("td")[3].innerHTML.toUpperCase().indexOf(filter) > -1)
+        if (tr[i]) {
+            if (hostname || host || port || username) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
 }
 
 
-$(document).ready(function(){
-  var params, paramObj, xhttp, targetUrl;
+$(document).ready(function() {
+    var params, paramObj, xhttp, targetUrl;
 
-  //Add host request to a submit event on the search form
-  $('#search-form').submit(function(event){
-    getData(event);
-  });
+    //Add host request to a submit event on the search form
+    $('#search-form').submit(function(event) {
+        getData(event);
+    });
 
-  //assign query params string
-  paramObj = {'host': 2}
-  params = $.param(paramObj)
-
-  // assign request variables
-  xhttp = new XMLHttpRequest();
-  targetUrl = "https://nessus.herokuapp.com/download/request?"+ params;
-  
-  xhttp.onreadystatechange = function() {
-
-    //Check request state
-    if (this.readyState == 4 && this.status == 200) {
-      var hosts;
-
-      $('#table-body').innerHTML = "";
-      $("#table").append("");
-
-      hosts = JSON.parse(this.responseText);
-      renderHostObjects(hosts);
-
-      tablesort(document.getElementById('table'));
-
-    }else if (this.status){
-
-      $("#table-body").innerHTML = "Oops!";
-
-    }else{
-
-      $("#table-body").innerHTML = "Loading... ";
-
+    //assign query params string
+    paramObj = {
+        'host': 2
     }
-  };
+    params = $.param(paramObj)
 
-  // send xhttp request
-  xhttp.open("GET", targetUrl, true);
-  xhttp.send();
+    // assign request variables
+    xhttp = new XMLHttpRequest();
+    targetUrl = "https://nessus.herokuapp.com/download/request?" + params;
 
-  $('#filter').keyup(filter)
+    xhttp.onreadystatechange = function() {
 
-}); 
+        //Check request state
+        if (this.readyState == 4 && this.status == 200) {
+            var hosts;
+
+            $('#table-body').innerHTML = "";
+            $("#table").append("");
+
+            hosts = JSON.parse(this.responseText);
+            renderHostObjects(hosts);
+
+            tablesort(document.getElementById('table'));
+
+        } else if (this.status) {
+
+            $("#table-body").innerHTML = "Oops!";
+
+        } else {
+
+            $("#table-body").innerHTML = "Loading... ";
+
+        }
+    };
+
+    // send xhttp request
+    xhttp.open("GET", targetUrl, true);
+    xhttp.send();
+
+    $('#filter').keyup(filter)
+
+});
 },{"tablesort":1}]},{},[2]);

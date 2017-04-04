@@ -1,75 +1,84 @@
 function getHosts(e) {
-  var params, paramObj, xhttp, targetUrl;
+    var params, paramObj, xhttp, targetUrl;
 
-  if(!e){ var e = window.event};
-  e.preventDefault();
+    if (!e) {
+        var e = window.event
+    };
+    e.preventDefault();
 
-  var paramObj = {'host': 2}
-
-  $('#search-form form input').each(function(){
-    if(this.value !== "" && this.name !== 'submit'){
-      paramObj[this.name] = this.value
+    var paramObj = {
+        'host': 2
     }
-  });
 
-  //Add host request to a submit event on the search form
-  $('#search-form').submit(function(event){
-    getData(event);
-  });
+    $('#search-form form input').each(function() {
+        if (this.value !== "" && this.name !== 'submit') {
+            paramObj[this.name] = this.value
+        }
+    });
 
-  //assign query params string
-  params = $.param(paramObj)
+    //Add host request to a submit event on the search form
+    $('#search-form').submit(function(event) {
+        getData(event);
+    });
 
-  // assign request variables
-  xhttp = new XMLHttpRequest();
-  targetUrl = "https://nessus.herokuapp.com/download/request?"+ params;
-  
-  xhttp.onreadystatechange = function() {
+    //assign query params string
+    params = $.param(paramObj)
 
-    //Check request state
-    if (this.readyState == 4 && this.status == 200) {
-      var hosts;
+    // assign request variables
+    xhttp = new XMLHttpRequest();
+    targetUrl = "https://nessus.herokuapp.com/download/request?" + params;
 
-      $('#table-body').innerHTML = "";
-      $("#table").append("");
+    xhttp.onreadystatechange = function() {
 
-      hosts = JSON.parse(this.responseText);
-      renderHostObjects(hosts);
+        //Check request state
+        if (this.readyState == 4 && this.status == 200) {
+            var hosts;
 
-      tablesort(document.getElementById('table'));
+            $('#table-body').innerHTML = "";
+            $("#table").append("");
 
-    }else if (this.status){
+            hosts = JSON.parse(this.responseText);
+            renderHostObjects(hosts);
 
-      $("#table-body").innerHTML = "Oops!";
+            tablesort(document.getElementById('table'));
 
-    }else{
+        } else if (this.status) {
 
-      $("#table-body").innerHTML = "Loading... ";
-      
-    }
-  };
+            $("#table-body").innerHTML = "Oops!";
 
-  // send xhttp request
-  xhttp.open("GET", targetUrl, true);
-  xhttp.send();
+        } else {
+
+            $("#table-body").innerHTML = "Loading... ";
+
+        }
+    };
+
+    // send xhttp request
+    xhttp.open("GET", targetUrl, true);
+    xhttp.send();
 
 }
 
-function renderHostObjects(hosts){
+function renderHostObjects(hosts) {
 
-  var $row, $table;
+    var $row, $table;
 
-  $table = $('#table-body');
+    $table = $('#table-body');
 
-  hosts.configurations.forEach((host, idx)=>{
-    $row = $('<tr/>', {class: 'row', id: 'row' + (idx + 1)}).prependTo($table)
+    hosts.configurations.forEach((host, idx) => {
+        $row = $('<tr/>', {
+            class: 'row',
+            id: 'row' + (idx + 1)
+        }).prependTo($table)
 
-    for(var key in host){
-          $row.append($('<td/>',
-            {class: key, text: host[key] }))
-    }   
-  });
-  $row.addClass('selected')
+        for (var key in host) {
+            $row.append($('<td/>', {
+                class: key,
+                text: host[key]
+            }))
+        }
+    });
+    $row.addClass('selected')
 };
 
 
