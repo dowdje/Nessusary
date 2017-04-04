@@ -284,7 +284,6 @@ function renderHostObjects(hosts) {
             $(this).addClass("selected");
         });
     });
-
     $row.addClass("selected")
 
 };
@@ -294,7 +293,7 @@ function getData(e) {
     e.preventDefault();
 
     var xhttp, targetUrl, params, paramObj;
-    paramObj = {};
+    paramObj = {host: 0};
 
     //Grab query params from search form
     $('#search-form form input').each(function() {
@@ -303,6 +302,7 @@ function getData(e) {
         }
     });
     params = $.param(paramObj)
+    debugger;
 
     // declare request variables
     xhttp = new XMLHttpRequest();
@@ -313,8 +313,7 @@ function getData(e) {
         //Check request state
         if (this.readyState == 4 && this.status == 200) {
             var hosts;
-
-            $('#table-body').innerHTML = "";
+            $('#table-body').empty();
             $("#table").append("");
 
             hosts = JSON.parse(this.responseText);
@@ -373,7 +372,6 @@ $(document).ready(function() {
         'host': 2
     }
     params = $.param(paramObj)
-
     // assign request variables
     xhttp = new XMLHttpRequest();
     targetUrl = "https://nessus.herokuapp.com/download/request?" + params;

@@ -35,7 +35,7 @@ function getHosts(e) {
         if (this.readyState == 4 && this.status == 200) {
             var hosts;
 
-            $('#table-body').innerHTML = "";
+            $('#table-body').empty();
             $("#table").append("");
 
             hosts = JSON.parse(this.responseText);

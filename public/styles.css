@@ -42,6 +42,7 @@ tr {
     margin: 0px;
     padding: 0px;
     cursor: pointer;
+    border: 1px solid ;
 }
 tr.selected {
     background-color: #41b614;
@@ -74,24 +75,28 @@ thead {
     padding-top: 5px;
     padding-bottom: 5px;
 }
-#tableFilter {
+#table-filter {
     display: flex;
     flex-direction: row;
     flex: 1;
-    float: left;
     height: 25px;
-    margin-left: 20px;
 }
 #filter-icon {
-    color: green;
+    padding-top: 5px;
+    padding-bottom: 0px;
+    margin-left: 5px;
 }
 #table-title {
     flex: 4;
     text-align: center;
     font-weight: none;
 }
-#squisher {
-    flex: 1;
+#table-filter img{
+    margin-left: 5px;
+}
+#table-filter input{
+    margin-left: 3px;
+    margin-right: 13px;
 }
 #table {
     display: flex;
@@ -115,6 +120,7 @@ thead {
     font-size: 16px;
     text-align: left;
     flex: 1;
+    min-width: 45px;
 }
 table th + th,
 table td + td {
@@ -136,6 +142,7 @@ tbody {
     padding-left: 6px;
     flex: 1;
     font-size: 14px;
+    min-width: 45px;
 }
 #search-form {
     flex: 1;
@@ -159,15 +166,6 @@ tbody {
     border-radius: 3px;
     outline: none;
     background-color: #8b9096;
-}
-#filter {
-    height: 25px;
-    margin-bottom: 5px;
-    border-radius: 0px;
-    margin-left: 5px;
-    background-color: #302e30;
-    color: whitesmoke;
-    font-size: 13px;
 }
 input::-webkit-input-placeholder {
     color: #c6d8c5 !important;
@@ -202,7 +200,7 @@ input:-ms-input-placeholder {
 #submit {
     -webkit-appearance: none;
     margin: 5px;
-    height: 40px;
+    height: 30px;
     width: 100px;
     background-color: #3fae29;
     border: 1px solid #6fbf4a;
@@ -257,4 +255,21 @@ th[aria-sort]:not(.no-sort):after {
 th[role=columnheader]:not(.no-sort):hover:after {
     visibility: visible;
     opacity: 1;
+}
+@media only screen and (max-device-width: 480px) {
+    #table-title{
+        flex: 1;
+    }
+    #filter{
+        flex: 3;
+    }
+    #squisher{
+        display: none;
+    }
+    #search-form form{
+        display: hide;
+    }
+    #glass{
+        display: block;
+    }
 }
