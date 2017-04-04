@@ -261,24 +261,28 @@ function renderHostObjects(hosts){
   var $row;
 
   hosts.configurations.forEach((host, idx)=>{
+
     var $table = $('#table-body');
+
     $row = $('<tr/>', {class: 'row', id: 'row' + (idx + 1)})
+
     $table.prepend($row)
       for(var key in host){
           $row.append($('<td/>',
             {class: key, text: host[key] }))
-      }   
+      }
+
+    $row.click(function() {
+      $(this).parent().children().removeClass("selected");
+      $(this).addClass("selected");
+    });  
   });
 
   $row.css('color', 'black')
   $row.css('font-weight', 'bold')
   $row.css('font-size', '17px')
   tablesort(document.getElementById('table'));
-$("tr").click(function() {
-  $(this).parent().children().removeClass("selected");
-    $(this).addClass("selected");
 
-});
 
   // $("#table").trigger("update");
 };
