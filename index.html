@@ -3,8 +3,6 @@
     <title></title>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
-    <!-- <script type="text/javascript" src="tableSorter.js"></script>     -->
-    <!-- <script type="text/javascript" src="widgets.js"></script> -->
     <link rel="stylesheet" href="styles.css">
     <script src="js/hostRequest.js"></script>
     <script src='js/bundle.js'></script>
@@ -33,6 +31,7 @@
           </tbody>
 
         </table>
+        <footer>Get in touch</footer>
       </div>
 
       <div id='search-form'>
@@ -42,9 +41,9 @@
           <label>HOSTNAME</label>
           <input type="text" name="hostname" id='hostname-input' class='input' placeholder='e.g. nessus-xml.lab.com'>
           <label>PORT</label>
-          <input type="text" name="port" id='hostname-input' class='input'>          
+          <input type="text" name="port" id='hostname-input' class='input' placeholder="e.g. 3384">          
           <label>USERNAME</label>
-          <input type="text" name="port" id='username-input' class='input'>
+          <input type="text" name="port" id='username-input' class='input' placeholder="e.g. nogg">
           <input type="submit" name="submit" id='submit' value='Fetch Hosts' >
         </form>
       </div>
