@@ -19,7 +19,7 @@ nav{
   height: 70px;
   width: 182px;
 }
-#sub-nav{
+#main{
   display: flex;
   flex-direction: row;
   flex: 4;

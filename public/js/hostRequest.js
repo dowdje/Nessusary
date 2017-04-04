@@ -1,25 +1,30 @@
+
+
 function renderHostObjects(hosts){
+
   var $row;
+
   hosts.configurations.forEach((host, idx)=>{
     var $table = $('#table-body');
     $row = $('<tr/>', {class: 'row', id: 'row' + (idx + 1)}).prependTo($table)
-      for(var key in host){
+
+    for(var key in host){
           $row.append($('<td/>',
             {class: key, text: host[key] }))
-      }   
+    }   
   });
   $row.css('color', 'black')
   $row.css('font-weight', 'bold')
   $row.css('font-size', '17px')
-
-
   // $("#table").trigger("update");
 };
 
 
 function getData(e) {
+
   if(!e){ var e = window.event};
   e.preventDefault();
+
   var paramObj = {'host': 2}
 
   $('#search-form form input').each(function(){

@@ -149,7 +149,6 @@
         } else {
           sortOrder = that.options.descending ? 'ascending' : 'descending';
         }
-
         header.setAttribute('aria-sort', sortOrder);
       }
 
@@ -282,9 +281,6 @@ function renderHostObjects(hosts){
   $row.css('font-weight', 'bold');
   $row.css('font-size', '17px');
 
-  tablesort(document.getElementById('table'));
-
-
   // $("#table").trigger("update");
 };
 
@@ -310,8 +306,6 @@ function getData(e) {
       $('#table-body').empty();
       $("#table").append("");
       const hosts = JSON.parse(this.responseText);
-      storeResponse(hosts);
-      debugger;
       renderHostObjects(hosts)
     }else if (this.status){
       $("#table-body").innerHTML = "Oops!";
@@ -353,6 +347,7 @@ $(document).ready(function(){
       $("#table").append("");
       const hosts = JSON.parse(this.responseText);
       renderHostObjects(hosts);
+      tablesort(document.getElementById('table'));
     }else if (this.status){
       $("#table-body").innerHTML = "Oops!";
     }else{
