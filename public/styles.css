@@ -258,11 +258,3 @@ th[role=columnheader]:not(.no-sort):hover:after {
     visibility: visible;
     opacity: 1;
 }
-footer {
-    position: fixed;
-    left: 0px;
-    bottom: 0px;
-    height: 30px;
-    width: 100%;
-    background: #999;
-}

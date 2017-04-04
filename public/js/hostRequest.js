@@ -10,6 +10,7 @@ function getHosts(e) {
         'host': 2
     }
 
+    //Grab Query params from search form
     $('#search-form form input').each(function() {
         if (this.value !== "" && this.name !== 'submit') {
             paramObj[this.name] = this.value
@@ -21,7 +22,7 @@ function getHosts(e) {
         getData(event);
     });
 
-    //assign query params string
+    //Assign query params string
     params = $.param(paramObj)
 
     // assign request variables
