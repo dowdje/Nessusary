@@ -56,33 +56,6 @@ tr.selected {
     color: #FFF;
     border: 1px solid blue;
 }
-button{
-  margin: 5px;
-  height:100px;
-  width: 100px;
-  background-color: #044bed;
-  border: 2px solid #303338;
-  border-radius: 50px;
-  cursor: pointer;
-  outline: none;
-  font-size: 12px;
-  margin-left: 60px;
-  font-size: 16px;
-  -webkit-appearance: none;
-}
-
-button:hover{
-  background-color: #2f6cf9;
-  box-shadow: 2px 2px 1px #8f939b;
-}
-
-button:active{
-  height: 106px;
-  width: 106px;
-  border-radius: 53px;
-  border: 3px solid grey;
-  box-shadow: 0px 0px 0px black;
-}
 
 thead{
   background-color: #72c16e;
@@ -109,6 +82,7 @@ thead{
   color: #3fae29;
   text-align: center;
   padding-top: 10px;
+  padding-bottom: 5px;
 }
 
 #table{
@@ -133,10 +107,10 @@ thead{
 
 #table-headers th{
   list-style: none;
-  padding: 10px;
+  padding: 8px;
   padding-left: 6px;
   color: white;
-  font-size: 17px;
+  font-size: 16px;
   text-align: left;
   flex: 1;
 }
@@ -175,6 +149,7 @@ tbody{
   padding: 5px;
   padding-left: 6px;
   flex: 1;
+  font-size: 14px;
 }
 
 

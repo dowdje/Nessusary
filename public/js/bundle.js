@@ -278,9 +278,10 @@ function renderHostObjects(hosts){
     });  
   });
 
-  $row.css('color', 'black')
-  $row.css('font-weight', 'bold')
-  $row.css('font-size', '17px')
+  $row.css('color', 'black');
+  $row.css('font-weight', 'bold');
+  $row.css('font-size', '17px');
+
   tablesort(document.getElementById('table'));
 
 
@@ -309,6 +310,8 @@ function getData(e) {
       $('#table-body').empty();
       $("#table").append("");
       const hosts = JSON.parse(this.responseText);
+      storeResponse(hosts);
+      debugger;
       renderHostObjects(hosts)
     }else if (this.status){
       $("#table-body").innerHTML = "Oops!";
@@ -326,18 +329,18 @@ function getData(e) {
 
 }
 
+function storeResponse(obj){
+  localStorage.setItem('configurations', JSON.stringify(obj.configurations))
+}
 
-$(document).ready(function(){ 
+
+$(document).ready(function(){
+
   $('#search-form').submit(function(event){
     getData(event);
   });
-  var paramObj = {'host': 2}
 
-  $('#search-form form input').each(function(){
-    if(this.value !== "" && this.name !== 'submit'){
-      paramObj[this.name] = this.value
-    }
-  });
+  var paramObj = {'host': 2}
 
   params = $.param(paramObj)
 
@@ -349,7 +352,7 @@ $(document).ready(function(){
       $('#table-body').innerHTML = "";
       $("#table").append("");
       const hosts = JSON.parse(this.responseText);
-      renderHostObjects(hosts)
+      renderHostObjects(hosts);
     }else if (this.status){
       $("#table-body").innerHTML = "Oops!";
     }else{
@@ -359,9 +362,5 @@ $(document).ready(function(){
   
   xhttp.open("GET", targetUrl, true);
   xhttp.send();
-
-  $('#search-form form').each(function(){
-    this.reset();
-  });
 }); 
 },{"tablesort":1}]},{},[2]);
