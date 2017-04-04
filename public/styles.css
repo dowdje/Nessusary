@@ -272,4 +272,7 @@ th[role=columnheader]:not(.no-sort):hover:after {
     #glass{
         display: block;
     }
+    #table-container{
+        -webkit-overflow-scrolling: touch;
+    }
 }
