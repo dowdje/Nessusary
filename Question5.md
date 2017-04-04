@@ -4,7 +4,7 @@ To answer the first part, I'm going to make the assumption that since the respon
 
 My first instinct is client-side pagination, which we can do by generating all the pages as soon as the response resolves or we can cache it client side and paginate as the user navigates (by scroll or click).
 
-Without caching, we would need to generate DOM page objects and render them asynchronously so the UI does not feel latent.  Fully paginating initially would work, but as the data becomes increasingly more robust, we run the risk of client-side latency. Although, since the structure of the data is uniform, creating a row or <li> for each object is computationally inexpensive. This is definitely an option.
+Without caching, we would need to generate DOM page objects and render them asynchronously so the UI does not feel latent.  Fully paginating initially would work, but as the data becomes increasingly more robust, we run the risk of client-side latency. Although, since the structure of the data is uniform, creating a row or list-item for each object is computationally inexpensive. This is definitely an option.
 
 If we decide to cache it and hold on to it, we need to consider a few things: size, structure, security. 
 
